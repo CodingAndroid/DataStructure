@@ -1,0 +1,37 @@
+package DataStructure_LinkedList;
+
+/**
+ * author: lihui1
+ * date: 2018/7/1
+ * email: 1316994947@qq.com
+ * desc:
+ */
+
+public class RemoveElements {
+
+
+    public ListNode removeNode(ListNode head, int val){
+        while (head != null && head.val == val){
+            ListNode delNode = head;
+            head = head.next;
+            delNode.next = null;
+        }
+        if (head == null){
+            return null;
+        }
+        ListNode preNode = head;
+        while (preNode.next != null){
+            if (preNode.next.val == val){
+                ListNode delNode = preNode.next;
+                preNode.next = delNode.next;
+                delNode.next = null;
+            } else {
+                preNode = preNode.next;
+            }
+        }
+        return head;
+    }
+    public static void main(String args[]){
+        System.out.println();
+    }
+}
