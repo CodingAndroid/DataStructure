@@ -2,6 +2,13 @@ package DataStructure_Sort;
 
 import java.util.Arrays;
 
+/**
+ * author: lihui1
+ * date: 2019/4/11
+ * email: 1316994947@qq.com
+ * desc: 快速排序
+ */
+
 public class QuickSort {
 
     /**
