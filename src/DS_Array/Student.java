@@ -1,4 +1,4 @@
-package DataStructure_Array;
+package DS_Array;
 
 /**
  * author: lihui1

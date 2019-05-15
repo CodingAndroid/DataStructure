@@ -1,4 +1,4 @@
-package DataStructure_LinkedList;
+package DS_LinkedList;
 
 import java.util.Stack;
 
@@ -22,7 +22,7 @@ public class LinkedList<E> {
 
         public E e;//数据域
 
-        public Node next;//指针域
+        public Node next;//指针域, 指向后继结点的引用
 
         public Node(E e){
             this(e, null);
@@ -134,6 +134,35 @@ public class LinkedList<E> {
     }
 
     /**
+     *
+     * @param head
+     * @param val
+     */
+    public void removeElement(Node head, E val){
+
+        while (head != null && head.e == val){
+            Node delNode = head;
+            head = head.next;
+            delNode.next = null;
+        }
+        if (head == null){
+            return;
+        }
+
+        Node pre = head;
+        while (pre.next != null){
+            if (pre.next.e == val){
+                Node delNode = pre.next;
+                pre.next = delNode.next;
+                delNode.next = null;
+            } else {
+                pre = pre.next;
+            }
+            System.out.printf(""+pre.e);
+        }
+    }
+
+    /**
      * 非递归反转链表
      */
     public void reverseLinkedList(){
@@ -226,5 +255,6 @@ public class LinkedList<E> {
         //linkedList.reverseLinkedList();
         linkedList.reverse1(linkedList.head);
         System.out.println("链表size="+linkedList.size);
+        linkedList.removeElement(linkedList.head, 2);
     }
 }

@@ -1,6 +1,4 @@
-package DataStructure_Sort;
-
-import queue.Array;
+package DS_Sort;
 
 import java.util.Arrays;
 
@@ -24,16 +22,17 @@ public class SelectSort {
             return;
         }
         int length = a.length;
-        int min = 0;
         for (int i = 0; i < length-1; i++){
-            min = a[i];
-            int position = i;
+            int min = a[i];//假设最小值为待排序数组的第一个元素
+            int position = i;//假设最小值元素下标为待排序数组的第一个元素的下标
+            //通过比较获得待排序数组中的最小元素
             for (int j = i+1; j < length; j++){
                 if (min > a[j]){
                     min = a[j];
                     position = j;
                 }
             }
+            //位置交换: 把待排序数组中的最小元素放到已排序数组的末尾;
             a[position] = a[i];
             a[i] = min;
             System.out.println(i+Arrays.toString(a));
