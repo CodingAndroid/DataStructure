@@ -1,6 +1,4 @@
-package DS_Sort;
-
-import java.util.Arrays;
+package Sort;
 
 /**
  * author: lihui1
@@ -17,30 +15,39 @@ import java.util.Arrays;
 
 public class SelectSort {
 
-    public static void selectSort(int a[]){
-        if (a == null || a.length == 0){
+    public static void selectSort(int nums[]){
+        if (nums == null || nums.length == 0 || nums.length == 1){
             return;
         }
-        int length = a.length;
-        for (int i = 0; i < length-1; i++){
-            int min = a[i];//假设最小值为待排序数组的第一个元素
-            int position = i;//假设最小值元素下标为待排序数组的第一个元素的下标
-            //通过比较获得待排序数组中的最小元素
-            for (int j = i+1; j < length; j++){
-                if (min > a[j]){
-                    min = a[j];
-                    position = j;
+        int minIndex;
+        for (int i = 0; i < nums.length; i++){
+            minIndex = i;
+            for (int j = i + 1; j < nums.length; j++){
+                if (nums[j] < nums[minIndex]){
+                    minIndex = j;
                 }
             }
-            //位置交换: 把待排序数组中的最小元素放到已排序数组的末尾;
-            a[position] = a[i];
-            a[i] = min;
-            System.out.println(i+Arrays.toString(a));
+            swap(nums, i, minIndex);
         }
+    }
+
+    private static void swap(int num[], int i, int j){
+        //int temp = num[i];
+        //num[i] = num[j];
+        //num[j] = temp;
+        if (i == j){ //一定要判断
+            return;
+        }
+        num[i] = num[i] ^ num[j];
+        num[j] = num[i] ^ num[j];
+        num[i] = num[i] ^ num[j];
     }
 
     public static void main(String[] args) {
         int num[] = {4, 5, 6, 3, 2, 1, 10, 9};
         selectSort(num);
+        for (int i: num) {
+            System.out.print(i + " ");
+        }
     }
 }

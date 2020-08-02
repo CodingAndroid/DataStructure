@@ -1,10 +1,14 @@
-package queue;
+package Array;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * author: lihui1
- * date: 2018/7/24
+ * date: 2018/7/1
  * email: 1316994947@qq.com
- * desc:
+ * desc: 封装数组--泛型数组
  */
 
 public class Array<E> {
@@ -84,7 +88,7 @@ public class Array<E> {
         if (size == data.length)
             //throw new IllegalArgumentException("Add Failed, Array is full.");
             resize(2 * data.length);
-        for (int i = size - 1; i>=index; i--){ //从最后一个元素开始
+        for (int i = size - 1; i >= index; i--){ //从最后一个元素开始
             data[i+1] = data[i]; //后移
         }
         data[index] = e;
@@ -131,7 +135,7 @@ public class Array<E> {
      * @return
      */
     public boolean contains(E e){
-        for (int i = 0;i < data.length; i++){
+        for (int i = 0;i < size; i++){
             if (data[i].equals(e)){
                 return true;
             }
@@ -145,7 +149,7 @@ public class Array<E> {
      * @return
      */
     public int find(E e){
-        for (int i=0;i < data.length; i++){
+        for (int i = 0; i < size; i++){
             if (data[i].equals(e)){
                 return i;
             }
@@ -158,8 +162,15 @@ public class Array<E> {
      * @param e
      * @return
      */
-    public int findAll(int e){
-        return 0;
+    public Map<Integer, Object> findAll(E e){
+        if (data == null) return null;
+        Map<Integer, Object> map = new HashMap<>();
+        for (int i = 0; i < size; i++){
+            if (data[i].equals(e)){
+                map.put(i, e);
+            }
+        }
+        return map;
     }
 
     /**
@@ -168,19 +179,25 @@ public class Array<E> {
      */
     public E remove(int index){
         if (index >= data.length)
-            throw new IllegalArgumentException("Remove Failed.");
+            throw new IndexOutOfBoundsException("index 不合法");
         if (index < 0 || index >= size)
-            throw new IllegalArgumentException("Remove Failed.");
-        E temp = data[index];
+            throw new IndexOutOfBoundsException("index 不合法");
+        E e = data[index];
         for (int i = index; i < size; i++){
             data[i] = data[i+1]; //元素前移
         }
         size--;
-        data[size] = null;// loitering objects != memory leak
+        /**
+         * 原来size位置是指向一个引用的, java中指向一个引用, 这个位置就不能被垃圾回收,
+         * 如果我们把他置为null, 就会很快被垃圾回收了
+         * loitering objects != memory leak 游荡对象不等于内存泄露
+         * 游荡对象, 在我们程序中存在, 但是无法被垃圾回收处理
+         */
+        data[size] = null;
         if (size == data.length / 4 && data.length / 2 != 0){
             resize(data.length / 2);
         }
-        return temp;
+        return e;
     }
 
     /**
@@ -203,7 +220,7 @@ public class Array<E> {
      * 是否有元素e, 如果有删除
      * @param e
      */
-    public void removeEle(E e){
+    public void remove(E e){
         int index = find(e);
         if (index != -1){
             remove(index);
@@ -221,7 +238,7 @@ public class Array<E> {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        res.append(String.format("Array: size = %d, capacity = %d\n", size, data.length));
+        res.append(String.format("Array: size = %d, capacity = %d ", size, data.length));
         res.append('[');
         for (int i = 0; i<size; i++){
             res.append(data[i]);

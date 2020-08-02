@@ -22,21 +22,21 @@ public class Tree {
     }
 
     private void init() {
-        Node x=new Node("X",null,null);
-        Node y=new Node("Y",null,null);
-        Node d=new Node("d",x,y);
-        Node e=new Node("e",null,null);
-        Node f=new Node("f",null,null);
-        Node c=new Node("c",e,f);
-        Node b=new Node("b",d,null);
-        Node a=new Node("a",b,c);
+        Node x= new Node("X", null, null);
+        Node y= new Node("Y", null, null);
+        Node d= new Node("d", x, y);
+        Node e= new Node("e", null, null);
+        Node f= new Node("f", null, null);
+        Node c= new Node("c", e, f);
+        Node b= new Node("b", d, null);
+        Node a= new Node("a", b, c);
         root =a;
     }
 
     /**
      * 定义结点类
      */
-    private class Node{
+    private static class Node{
 
         private String data;//保存数据
 

@@ -1,4 +1,4 @@
-package DS_Sort;
+package Sort;
 
 /**
  * author: lihui1

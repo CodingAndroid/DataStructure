@@ -1,4 +1,4 @@
-package DS_Array;
+package Array;
 
 /**
  * author: lihui1
