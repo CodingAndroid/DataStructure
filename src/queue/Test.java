@@ -1,4 +1,4 @@
-package queue;
+package Queue;
 
 /**
  * author: lihui1
@@ -10,7 +10,7 @@ package queue;
 public class Test {
 
     public static void main(String[] args) {
-        ArrayQueue arrayQueue = new ArrayQueue();
+        ArrayQueue<String> arrayQueue = new ArrayQueue<String>();
         arrayQueue.enqueue("java");
         arrayQueue.enqueue("c++");
         arrayQueue.enqueue("php");

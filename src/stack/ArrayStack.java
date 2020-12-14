@@ -1,120 +1,112 @@
-package stack;
-
-import java.util.Arrays;
+package Stack;
 
 /**
  * author: lihui1
  * date: 2019/1/14
  * email: 1316994947@qq.com
- * desc:
+ * desc: 栈 先进后出
  */
 
-class Person{
-
-    private int id;
-
-    private String name;
-
-    public Person(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
-}
-public class ArrayStack {
+public class ArrayStack<T> implements IStack<T> {
 
     private int maxSize;
 
-    public int top;
+    public int top;//栈顶元素的索引
 
-    public static Object[] stackArray;
+    public T[] stackArray;
 
     /**
      * 构造函数, 初始化操作
-     * @param size
+     * @param capacity
      */
-    public ArrayStack(int size){
-        stackArray = new Object[size];
+    public ArrayStack(int capacity){
+        stackArray = (T[]) new Object[capacity];
         top = -1;
-        maxSize = size;
+        maxSize = capacity;
     }
 
     /**
      * 入栈
-     * @param obj
-     * @return
+     * @param t
      */
-    public boolean push(Object obj){
+    @Override
+    public void push(T t){
         if (isFull()){
-            return false;
+            return;
         }
-        stackArray[++top] = obj;
-        return true;
+        stackArray[++top] = t;
     }
 
-    public Object pop(){
+    @Override
+    public T pop() {
         if (isEmpty()){
-            return -1;
+            return null;
         }
-        return stackArray[top--];
+        return (T) stackArray[top--];
+    }
+
+    @Override
+    public T peek() {
+        return stackArray[top];
     }
 
     /**
      * 判断是否空栈
      * @return
      */
+    @Override
     public boolean isEmpty(){
-        if (top <= -1){
-            return true;
-        }
-        return false;
+        return top <= -1;
+    }
+
+    @Override
+    public int getSize() {
+        return top + 1;
     }
 
     /**
      * 判断栈是否满
      * @return
      */
+    @Override
     public boolean isFull(){
-        if (top>=maxSize-1){
-            return true;
-        }
-        return false;
+        return top >= maxSize - 1;
     }
 
-    public static void main(String args[]){
-        ArrayStack arrayStack = new ArrayStack(10);
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        if (stackArray != null && top > 0){
+            for (int i = 0; i <= top; i++) {
+                if (stackArray[i] == null) {
+                    builder.append("]");
+                    return builder.toString();
+                }
+                if (i < top)
+                    builder.append(stackArray[i]).append(",");
+                else
+                    builder.append(stackArray[i]);
+            }
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
+    public static void main(String[] args){
+        ArrayStack<Object> arrayStack = new ArrayStack<>(10);
         Person p = new Person(1, "java");
         arrayStack.push(10);
         arrayStack.push(20);
         arrayStack.push(30);
         arrayStack.push("hello");
         arrayStack.push(p);
-        System.out.println(Arrays.toString(stackArray));
-        System.out.println(arrayStack.top);
-        System.out.println(arrayStack.pop());
-        System.out.println(arrayStack.pop());
+        System.out.println(arrayStack);
+
+        System.out.print(arrayStack.pop());
+        System.out.println(arrayStack);
+
+        System.out.print(arrayStack.peek());
+        System.out.println(arrayStack);
     }
 }
