@@ -1,0 +1,31 @@
+/**
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] sortSub(int arr[]){
+        int temp[] =new int[arr.length];
+        for (int gap = 1; gap < arr.length; gap = 2 * gap) {
+            mergeSub(arr, gap, arr.length, temp);
+            System.out.print("第"+gap+"次:");
+            System.out.println(Arrays.toString(arr));
+        }
+        return arr;
+    }
+
+    /**
+     *
+     * @param arr
+     * @param sub_length
+     * @param length
+     * @param temp
+     */
+    public static void mergeSub(int arr[], int sub_length, int length, int temp[]){
+        int i;
+        for (i = 0; i+2*sub_length-1<length; i=i+2*sub_length){
+            merge(arr, i, i+sub_length-1,i+2*sub_length-1, temp);
+        }
+        if (i+sub_length-1<length){
+            merge(arr, i,i+sub_length-1,length-1, temp);
+        }
+    }
